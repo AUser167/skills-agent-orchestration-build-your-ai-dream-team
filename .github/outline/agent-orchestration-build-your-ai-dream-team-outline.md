@@ -21,10 +21,10 @@ By the end of this exercise, learners will be able to:
 1. Explain the responsibility of an Orchestrator agent in a multi-agent workflow.
 1. Inspect prebuilt custom agent definitions in `.github/agents/`.
 1. Identify model assignments for the exercise agents:
-   - Orchestrator: Opus 4.7
-   - Planner: Opus 4.7
-   - Coder: GPT-5.5
-   - Designer: Gemini 3.1 Pro
+   - Orchestrator: GPT-6 Luna
+   - Planner: GPT-6 Luna
+   - Coder: GPT-6 Luna
+   - Designer: GPT-6 Luna
 1. Use GitHub Copilot CLI in a Codespace terminal as the primary interface.
 1. Ask the Orchestrator to involve the Planner before implementation.
 1. Separate design work from coding work.
@@ -43,7 +43,7 @@ By the end of this exercise, learners will be able to:
 
 Learners will use prebuilt agent definitions and create these outputs:
 
-- `docs/agent-team.md`: summary of the custom agent team and their model assignments.
+- `docs/agent-team.md`: summary of the custom agent team and their model assignments, using the requested model for the free-tier setup and reasonable token consumption.
 - `docs/project-pulse-plan.md`: Planner-informed implementation plan for Project Pulse.
 - `app/index.html`: Project Pulse dashboard page.
 - `app/styles.css`: dashboard styling.
@@ -97,7 +97,7 @@ GitHub Copilot CLI can use custom agents stored in `.github/agents/`. In this ex
 
 - `docs/agent-team.md` exists.
 - The file includes `Orchestrator`, `Planner`, `Coder`, and `Designer`.
-- The file includes `Opus 4.7`, `GPT-5.5`, and `Gemini 3.1 Pro`.
+- The file includes `GPT-6 Luna` and explains the model choice.
 - The file references `.github/agents/` and Project Pulse.
 
 ## Step 2: Plan Project Pulse
