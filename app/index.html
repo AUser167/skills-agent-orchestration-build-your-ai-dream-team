@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Project Pulse</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="dashboard">
+      <header class="dashboard-header">
+        <h1>Project Pulse</h1>
+        <p>A current view of the work happening across our team.</p>
+      </header>
+
+      <section aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Projects</h2>
+        <p id="project-state" role="status" aria-live="polite">Loading projects…</p>
+        <div class="project-grid" aria-labelledby="projects-heading"></div>
+      </section>
+    </main>
+
+    <script>
+      const projectState = document.querySelector("#project-state");
+      const projectGrid = document.querySelector(".project-grid");
+      const requiredFields = ["name", "owner", "status", "recentActivity", "priority"];
+
+      function createDetail(label, value, valueClass) {
+        const detail = document.createElement("div");
+        const term = document.createElement("dt");
+        const description = document.createElement("dd");
+
+        term.textContent = label;
+        description.textContent = value;
+        if (valueClass) {
+          description.className = valueClass;
+        }
+        detail.append(term, description);
+        return detail;
+      }
+
+      function badgeClass(type, value) {
+        const variant = value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        return `${type}-badge ${type}-${variant}`;
+      }
+
+      function createProjectCard(project) {
+        const card = document.createElement("article");
+        const heading = document.createElement("h3");
+        const details = document.createElement("dl");
+
+        card.className = "project-card";
+        heading.textContent = project.name;
+        details.append(
+          createDetail("Owner", project.owner),
+          createDetail("Status", project.status, badgeClass("status", project.status)),
+          createDetail("Recent activity", project.recentActivity),
+          createDetail("Priority", project.priority, badgeClass("priority", project.priority))
+        );
+        card.append(heading, details);
+        return card;
+      }
+
+      async function loadProjects() {
+        try {
+          const response = await fetch("project-data.json");
+          if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}.`);
+          }
+
+          const data = await response.json();
+          if (!data || !Array.isArray(data.projects)) {
+            throw new Error('The data must contain a "projects" array.');
+          }
+
+          if (data.projects.length === 0) {
+            projectState.textContent = "No projects are available right now.";
+            return;
+          }
+
+          data.projects.forEach((project, index) => {
+            if (
+              !project ||
+              requiredFields.some(
+                (field) => typeof project[field] !== "string" || !project[field].trim()
+              )
+            ) {
+              throw new Error(`Project ${index + 1} is missing a required text field.`);
+            }
+          });
+
+          const cards = data.projects.map(createProjectCard);
+          projectGrid.replaceChildren(...cards);
+          projectState.hidden = true;
+        } catch (error) {
+          projectState.setAttribute("role", "alert");
+          projectState.textContent = `Unable to load projects: ${error.message}`;
+        }
+      }
+
+      loadProjects();
+    </script>
+  </body>
+</html>

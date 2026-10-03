@@ -1,0 +1,39 @@
+{
+  "projects": [
+    {
+      "name": "Contributor Onboarding Refresh",
+      "owner": "Maya Chen",
+      "status": "In progress",
+      "recentActivity": "Published the updated setup guide for review.",
+      "priority": "High"
+    },
+    {
+      "name": "API Usage Insights",
+      "owner": "Jordan Lee",
+      "status": "Planning",
+      "recentActivity": "Aligned on the first set of adoption metrics.",
+      "priority": "Medium"
+    },
+    {
+      "name": "Mobile Release Readiness",
+      "owner": "Priya Patel",
+      "status": "At risk",
+      "recentActivity": "Investigating a crash found in the latest test build.",
+      "priority": "Critical"
+    },
+    {
+      "name": "Design System Accessibility",
+      "owner": "Sam Rivera",
+      "status": "In progress",
+      "recentActivity": "Completed keyboard-navigation checks for form controls.",
+      "priority": "High"
+    },
+    {
+      "name": "Quarterly Billing Cleanup",
+      "owner": "Alex Morgan",
+      "status": "Complete",
+      "recentActivity": "Shipped the invoice corrections and shared the rollout notes.",
+      "priority": "Low"
+    }
+  ]
+}
